@@ -1,19 +1,22 @@
 import express from "express";
 import dotenv from 'dotenv';
-import userRoutes from './routes/userRoutes.js'
-import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import userRoutes from './routes/userRoutes.js';
+import {notFound, errorHandler} from "./middleware/errorMiddleware.js";
+import connectDB from "./config/db.js";
 
-dotenv.config()
+dotenv.config();
+
+connectDB();
 
 const port = process.env.PORT || 3500;
 const app = express();
 
-app.use( '/api/users', userRoutes );
+app.use('/api/users', userRoutes);
 
-app.get( '/', ( req, res ) => res.send( 'Server is ready' ) );
+app.get('/', (req, res) => res.send('Server is ready'));
 
-app.use( notFound );
-app.use( errorHandler );
+app.use(notFound);
+app.use(errorHandler);
 
-app.listen( port, () => console.log( `'Server is running on port: ${ port }` ) );
+app.listen(port, () => console.log(`'Server is running on port: ${ port }`));
 
